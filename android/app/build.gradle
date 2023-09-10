@@ -22,18 +22,18 @@ if (flutterVersionName == null) {
 }
 
 
-def keystorePropertiesFile = rootProject.file("key.properties")
-def keystoreProperties = new Properties()
-if (keystorePropertiesFile.exists()) {
-    keystorePropertiesFile.withReader('UTF-8') { reader ->
-        keystoreProperties.load(reader)
-    }
-}
+//def keystorePropertiesFile = rootProject.file("key.properties")
+//def keystoreProperties = new Properties()
+//if (keystorePropertiesFile.exists()) {
+//    keystorePropertiesFile.withReader('UTF-8') { reader ->
+//        keystoreProperties.load(reader)
+//    }
+//}
 
-def _storeFile = file(System.getenv("KEYSTORE") ?: keystoreProperties.getProperty("storeFile") ?: "keystore.jks")
-def _storePassword = System.getenv("KEYSTORE_PASSWORD") ?: keystoreProperties.getProperty("storePassword")
-def _keyAlias = System.getenv("KEY_ALIAS") ?: keystoreProperties.getProperty("keyAlias")
-def _keyPassword = System.getenv("KEY_PASSWORD") ?: keystoreProperties.getProperty("keyPassword")
+//def _storeFile = file(System.getenv("KEYSTORE") ?: keystoreProperties.getProperty("storeFile") ?: "keystore.jks")
+//def _storePassword = System.getenv("KEYSTORE_PASSWORD") ?: keystoreProperties.getProperty("storePassword")
+//def _keyAlias = System.getenv("KEY_ALIAS") ?: keystoreProperties.getProperty("keyAlias")
+//def _keyPassword = System.getenv("KEY_PASSWORD") ?: keystoreProperties.getProperty("keyPassword")
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -70,18 +70,18 @@ android {
 
     signingConfigs {
         release {
-            storeFile _storeFile
-            storePassword _storePassword
-            keyAlias _keyAlias
-            keyPassword _keyPassword
-            v1SigningEnabled true
-            v2SigningEnabled true
+//            storeFile _storeFile
+//            storePassword _storePassword
+//            keyAlias _keyAlias
+//            keyPassword _keyPassword
+//            v1SigningEnabled true
+//            v2SigningEnabled true
         }
         debug {
-            storeFile _storeFile
-            storePassword _storePassword
-            keyAlias _keyAlias
-            keyPassword _keyPassword
+//            storeFile _storeFile
+//            storePassword _storePassword
+//            keyAlias _keyAlias
+//            keyPassword _keyPassword
             v1SigningEnabled true
             v2SigningEnabled true
         }
@@ -89,14 +89,14 @@ android {
     
     buildTypes {
         release {
-            if (signingConfigs.release.storePassword != null){
-                signingConfig signingConfigs.release
-            }
+//            if (signingConfigs.release.storePassword != null){
+//                signingConfig signingConfigs.release
+//            }
         }
         debug {
-            if (signingConfigs.debug.storePassword != null){
-                signingConfig signingConfigs.release
-            }
+//            if (signingConfigs.debug.storePassword != null){
+//                signingConfig signingConfigs.release
+//            }
         }
     }
 }
