@@ -1,12 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:miru_app/utils/i18n.dart';
+import 'package:miru_app/utils/request.dart';
 import 'package:miru_app/utils/router.dart';
 import 'package:miru_app/views/widgets/button.dart';
 import 'package:miru_app/views/widgets/messenger.dart';
@@ -17,6 +17,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 late PackageInfo packageInfo;
 late AndroidDeviceInfo androidDeviceInfo;
 late WindowsDeviceInfo windowsDeviceInfo;
+late LinuxDeviceInfo linuxDeviceInfo;
 
 class ApplicationUtils {
   static Future ensureInitialized() async {
@@ -24,6 +25,11 @@ class ApplicationUtils {
     final deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       androidDeviceInfo = await deviceInfo.androidInfo;
+      return packageInfo;
+    }
+    if (Platform.isLinux) {
+      linuxDeviceInfo = await deviceInfo.linuxInfo;
+      return packageInfo;
     }
     if (Platform.isWindows) {
       windowsDeviceInfo = await deviceInfo.windowsInfo;
@@ -35,7 +41,7 @@ class ApplicationUtils {
     try {
       const url =
           "https://api.github.com/repos/miru-project/miru-app/releases/latest";
-      final res = await Dio().get(url);
+      final res = await dio.get(url);
       final remoteVersion =
           (res.data["tag_name"] as String).replaceFirst('v', '');
       debugPrint('remoteVersion: $remoteVersion');

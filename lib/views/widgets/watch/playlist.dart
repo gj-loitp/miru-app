@@ -5,12 +5,12 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class PlayList extends fluent.StatelessWidget {
   const PlayList({
-    Key? key,
+    super.key,
     required this.title,
     required this.list,
     required this.selectIndex,
     required this.onChange,
-  }) : super(key: key);
+  });
   final String title;
   final List<String> list;
   final int selectIndex;
@@ -38,23 +38,20 @@ class PlayList extends fluent.StatelessWidget {
   }
 
   Widget _buildDesktop(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: fluent.FluentTheme.of(context).micaBackgroundColor,
-      child: ScrollablePositionedList.builder(
-        itemCount: list.length,
-        initialScrollIndex: selectIndex,
-        itemBuilder: (context, index) {
-          final contact = list[index];
-          return fluent.ListTile.selectable(
-            title: Text(contact),
-            selected: list[selectIndex] == contact,
-            onSelectionChange: (value) {
-              onChange(index);
-            },
-          );
-        },
-      ),
+    return ScrollablePositionedList.builder(
+      itemCount: list.length,
+      initialScrollIndex: selectIndex,
+      padding: const EdgeInsets.all(8),
+      itemBuilder: (context, index) {
+        final contact = list[index];
+        return fluent.ListTile.selectable(
+          title: Text(contact),
+          onPressed: () {
+            onChange(index);
+          },
+          selected: list[selectIndex] == contact,
+        );
+      },
     );
   }
 
@@ -69,11 +66,11 @@ class PlayList extends fluent.StatelessWidget {
 
 class PlaylistAndroidTile extends StatelessWidget {
   const PlaylistAndroidTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.onTap,
     required this.selected,
-  }) : super(key: key);
+  });
   final String title;
   final Function() onTap;
   final bool selected;
